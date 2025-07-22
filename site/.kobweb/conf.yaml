@@ -1,5 +1,8 @@
 site:
   title: "Water_quality_web"
+  headElements:
+    - [ "script", { "src": "https://cdn.jsdelivr.net/npm/some-chart-library@3/dist/chart.min.js" } ]
+    - [ "script", { "src": "/my-custom-script.js" } ]
 
 server:
   files:
