@@ -30,4 +30,4 @@ gradle.settingsEvaluated {
 rootProject.name = "WaterQuality"
 
 include(":site")
-include(":worker")
+//include(":worker")

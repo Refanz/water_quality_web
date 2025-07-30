@@ -30,7 +30,7 @@ kotlin {
             implementation(libs.kobweb.silk)
             implementation(libs.silk.icons.fa)
             implementation(libs.kobwebx.markdown)
-            implementation(project(":worker"))
+//            implementation(project(":worker"))
 
             // Ktor Client
             implementation("io.ktor:ktor-client-core:3.2.2")

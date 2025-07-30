@@ -1,68 +1,125 @@
-package com.refanzzzz.waterquality.components.sections.landingpage
-
 import androidx.compose.runtime.Composable
-import com.refanzzzz.waterquality.components.widgets.NavLink
-import com.refanzzzz.waterquality.styles.NavBarStyle
-import com.refanzzzz.waterquality.styles.NavButtonStyle
+import com.refanzzzz.waterquality.components.widgets.PrimaryButton
+import com.refanzzzz.waterquality.components.widgets.WhiteButton
+import com.refanzzzz.waterquality.styles.AppColors
+import com.refanzzzz.waterquality.styles.AppStrings
+import com.varabyte.kobweb.compose.css.FontWeight
+import com.varabyte.kobweb.compose.css.TextDecorationLine
+import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Row
-import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
-import com.varabyte.kobweb.framework.annotations.DelicateApi
-import com.varabyte.kobweb.silk.style.toModifier
-import com.refanzzzz.waterquality.util.Assets
-import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.ui.Alignment
-import com.varabyte.kobweb.compose.ui.modifiers.size
-import com.varabyte.kobweb.compose.ui.modifiers.verticalAlign
-import com.varabyte.kobweb.compose.ui.modifiers.zIndex
-import com.varabyte.kobweb.silk.components.forms.Button
-import com.varabyte.kobweb.silk.components.graphics.Image
+import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.modifiers.*
+import com.varabyte.kobweb.silk.components.icons.fa.FaWater
+import com.varabyte.kobweb.silk.components.icons.fa.IconSize
+import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
+import com.varabyte.kobweb.silk.style.CssStyle
+import com.varabyte.kobweb.silk.style.selectors.hover
+import com.varabyte.kobweb.silk.style.toModifier
+import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.px
 
-@OptIn(DelicateApi::class)
 @Composable
 fun NavBar() {
 
-//    val breakpoint by rememberBreakpoint()
+    val links = listOf("Home", "Fitur", "Peta Air", "Cara Kerja", "Blog", "Tentang", "Kontak")
 
     Box(
-        modifier = NavBarStyle.toModifier()
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .padding(
+                leftRight = 24.px,
+                topBottom = 8.px,
+            )
+            .fillMaxWidth()
     ) {
         Row(
-          modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier
+                .fillMaxWidth()
+                .maxWidth(80.cssRem)
         ) {
-            Image(
-                src = Assets.WATER_ICON,
-                modifier = Modifier
-                    .size(64.px)
-            )
-            NavLinks()
+            NavLogo()
+            NavLinks(links)
+            NavButton()
         }
     }
 }
 
 @Composable
-fun NavLinks(modifier: Modifier = Modifier) {
+fun NavLogo() {
     Row(
-        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End
+        modifier = Modifier
+            .gap(12.px)
     ) {
-        NavLink(path = "#home", text = "Home")
-        NavLink(path = "#maps", text = "Maps")
-        NavLink(path = "#about", text = "About")
-        Button(
-            onClick = {
-                console.log("Login is clicked")
-            },
-//            modifier = NavButtonStyle.toModifier()
-        ) {
-            SpanText("Login", Modifier.zIndex(1))
-        }
+        FaWater(
+            size = IconSize.X2,
+            modifier = Modifier
+                .color(AppColors.PRIMARY_BLUE.color)
+        )
+        SpanText(
+            text = AppStrings.AppName.text,
+            modifier = Modifier
+                .fontWeight(FontWeight.Bold)
+                .fontSize(24.px)
+                .color(AppColors.PRIMARY_BLUE_DARK.color)
+        )
     }
 }
 
+@Composable
+fun NavLinks(links: List<String>) {
+    Row(
+        modifier = Modifier
+            .gap(12.px)
+    ) {
+        NavLink("Home", "/")
+        NavLink("Features", "/")
+        NavLink("Water Maps", "/")
+        NavLink("How it Works", "/")
+        NavLink("About", "about")
+    }
+}
+
+val NavLinkStyle = CssStyle {
+    base {
+        Modifier
+            .textDecorationLine(TextDecorationLine.None)
+            .color(AppColors.TEXT_SECONDARY.color)
+    }
+    hover {
+        Modifier
+            .color(AppColors.PRIMARY_BLUE.color)
+    }
+}
+
+@Composable
+fun NavLink(text: String, path: String) {
+    Link(
+        path = path,
+        text = text,
+        modifier = NavLinkStyle.toModifier()
+    )
+}
+
+@Composable
+fun NavButton() {
+    Row(
+        modifier = Modifier
+            .gap(12.px)
+    ) {
+        WhiteButton(
+            "Masuk",
+            onClick = {}
+        )
+
+        PrimaryButton(
+            btnText = "Mulai Sekarang",
+            onClick = {}
+        )
+    }
+}
